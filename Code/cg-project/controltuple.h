@@ -5,11 +5,18 @@
 
 struct ControlTuple
 {
-    XYZTuple rotation;
+    XYZTuple aPoint;
+    XYZTuple bPoint;
+    double angle;
+
     XYZTuple eye;
     XYZTuple direction;
 
-    ControlTuple(XYZTuple rotation, XYZTuple eye, XYZTuple direction);
+    ControlTuple(XYZTuple aPoint,
+                 XYZTuple bPoint,
+                 double angle,
+                 XYZTuple eye,
+                 XYZTuple direction);
 };
 
 #endif // CONTROLTUPLE_H

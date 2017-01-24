@@ -6,7 +6,8 @@
 #include <QGLWidget>
 #include <QTimer>
 using glm::vec3;
-#include "scene.h"
+#include "scenebasic.h"
+#include "xyztuple.h"
 
 class MainView : public QGLWidget
 {
@@ -14,7 +15,7 @@ class MainView : public QGLWidget
 
 private:
     QTimer *timer;
-    Scene *scene;
+    SceneBasic *scene;
     float angle;
     vec3 axis;
 
@@ -22,6 +23,8 @@ public:
     MainView(const QGLFormat & format, QWidget *parent = 0 );
 
     void setRotAxis(float ang, float x, float y , float z);
+    void rotateModel(XYZTuple a, XYZTuple b, double angle);
+    void updateView(XYZTuple eye, XYZTuple direction);
 protected:
     void initializeGL();
     void paintGL();

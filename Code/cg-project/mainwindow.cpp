@@ -35,7 +35,7 @@ void MainWindow::setView(MainView *view, ControlWidget *controlWidget)
 
     setCentralWidget(widget);
 
-    this->setMinimumHeight(600);
+    this->setMinimumHeight(800);
     this->setMinimumWidth(1000);
 
     this->setUpConnections();
@@ -55,17 +55,36 @@ void MainWindow::rotateXYZ(double x, double y, double z)
 
 void MainWindow::setUpConnections()
 {
-   auto applyButton = this->controlWidget->getApplyResetWidget()->getApplyButton();
+   /*auto applyButton = this->controlWidget->applyResetWidget->applyButton;
    connect(applyButton, SIGNAL (released()), this, SLOT (onApplyClick()));
+
+   auto resetButton = this->controlWidget->applyResetWidget->resetButton;
+   connect(resetButton, SIGNAL (released()), this, SLOT (onResetClick()));*/
 }
 
 void MainWindow::onApplyClick()
 {
     auto currentValues = this->controlWidget->getCurrentValues();
-    auto rotation = currentValues.rotation;
-    std::cout << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
-    this->rotateXYZ(rotation.x, rotation.y, rotation.z);
+    this->view->updateView(currentValues.eye, currentValues.direction);
+    //this->view->rotateModel(currentValues.aPoint, currentValues.bPoint, currentValues.angle);
 }
+
+void MainWindow::onResetClick()
+{
+    auto eyeWidget = this->controlWidget->eyeWidget;
+    auto directionWidget = this->controlWidget->directionWidget;
+    eyeWidget->xSpinBox->setValue(0);
+    eyeWidget->ySpinBox->setValue(0);
+    eyeWidget->zSpinBox->setValue(2);
+
+    directionWidget->xSpinBox->setValue(0);
+    directionWidget->ySpinBox->setValue(0);
+    directionWidget->zSpinBox->setValue(-1);
+
+    auto currentValues = this->controlWidget->getCurrentValues();
+    this->view->updateView(currentValues.eye, currentValues.direction);
+}
+
 void MainWindow::on_actionRot_45_about_y_triggered()
 {
     view->setRotAxis(45,0,1,0);

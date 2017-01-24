@@ -83,3 +83,13 @@ void MainView::timerUpdate() {
      scene->setAngleAxis(ang,vec3(x,y,z));
      updateGL();
  }
+
+ void MainView::rotateModel(XYZTuple a, XYZTuple b, double angle)
+ {
+    scene->rotateModel(a, b, angle);
+ }
+
+ void MainView::updateView(XYZTuple eye, XYZTuple direction)
+ {
+     scene->updateView(eye, direction);
+ }

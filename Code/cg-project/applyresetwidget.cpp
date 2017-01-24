@@ -9,11 +9,6 @@ ApplyResetWidget::ApplyResetWidget(QWidget *parent) : QWidget(parent)
     create();
 }
 
-QPushButton *ApplyResetWidget::getApplyButton()
-{
-    return this->applyButton;
-}
-
 void ApplyResetWidget::create()
 {
     auto groupBox = new QGroupBox("Actions");

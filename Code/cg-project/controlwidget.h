@@ -6,6 +6,7 @@
 #include "rotationxyzwidget.h"
 #include "applyresetwidget.h"
 #include "controltuple.h"
+#include "rotationbylinewidget.h"
 
 class ControlWidget : public QWidget
 {
@@ -13,12 +14,14 @@ class ControlWidget : public QWidget
 public:
     explicit ControlWidget(QWidget *parent = 0);
     ControlTuple getCurrentValues();
-    ApplyResetWidget *  getApplyResetWidget();
-    void create();
-    RotationXYZWidget * rotationWidget;
+
+    RotationByLineWidget * rotationWidget;
     TrippleSpinBoxXYZ * eyeWidget;
     TrippleSpinBoxXYZ * directionWidget;
-    ApplyResetWidget * applyResetWidget;
+    ApplyResetWidget * applyResetRotationWidget;
+    ApplyResetWidget * applyResetPositionWidget;
+private:
+    void create();
 signals:
 
 public slots:

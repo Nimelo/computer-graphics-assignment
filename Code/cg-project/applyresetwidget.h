@@ -9,12 +9,10 @@ class ApplyResetWidget : public QWidget
     Q_OBJECT
 public:
     explicit ApplyResetWidget(QWidget *parent = 0);
-    QPushButton * getApplyButton();
-private:
-    void create();
     QPushButton * applyButton;
     QPushButton * resetButton;
-
+private:
+    void create();
 signals:
 
 public slots:

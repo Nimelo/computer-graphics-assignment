@@ -43,6 +43,51 @@ void SceneBasic::setAngleAxis(float ang, glm::vec3 ax)
     axis = ax;
 }
 
+void SceneBasic::rotateModel(XYZTuple b, XYZTuple d, double angle)
+{
+    mat4 m1;
+    mat4 m2;
+
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            if(i == j)
+            {
+                m1[i][j] = 1.0;
+                m2[i][j] = 1.0;
+            }
+            else
+            {
+                m1[i][j] = m2[i][j] = 0;
+            }
+        }
+    }
+
+    m1[0][3] = -b.x;
+    m1[1][3] = -b.y;
+    m1[2][3] = -b.z;
+
+    m1[0][3] = b.x;
+    m1[1][3] = b.y;
+    m1[2][3] = b.z;
+
+    rotationMatrix = m2 * rotationMatrix * m1;
+
+    this->axis = glm::normalize(vec3(b.x, b.y, b.z));
+    this->angle = angle;
+
+}
+
+void SceneBasic::updateView(XYZTuple eye, XYZTuple direction)
+{
+    view = glm::lookAt(
+                vec3(eye.x, eye.y, eye.z),
+                vec3(eye.x + direction.x, eye.y + direction.y, eye.z + direction.z),
+                vec3(0.0f,1.0f,0.0f)
+                );
+}
+
 void SceneBasic::CreateVBO()
 {
     // Create and populate the buffer objects
@@ -199,7 +244,7 @@ void SceneBasic::update( float t )
 void SceneBasic::setMatrices()
 {
   //  rotationMatrix = glm::rotate(mat4(1.0f),angle,vec3(0.0f,1.0f,0.0f));
-    model = glm::rotate(mat4(1.0f),angle,axis);
+    model = glm::rotate(rotationMatrix,angle,axis);
     mat4 mv = view * model;
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("MVP", projection * mv);

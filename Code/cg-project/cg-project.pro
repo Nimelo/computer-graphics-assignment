@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     controlwidget.cpp \
     applyresetwidget.cpp \
     xyztuple.cpp \
-    controltuple.cpp
+    controltuple.cpp \
+    rotationbylinewidget.cpp
 
 HEADERS  += mainwindow.h \
     glslprogram.h \
@@ -48,7 +49,8 @@ HEADERS  += mainwindow.h \
     controlwidget.h \
     applyresetwidget.h \
     xyztuple.h \
-    controltuple.h
+    controltuple.h \
+    rotationbylinewidget.h
 
 FORMS    += mainwindow.ui
 

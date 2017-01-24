@@ -22,6 +22,7 @@ private:
     void setUpConnections();
 private slots:
     void onApplyClick();
+    void onResetClick();
 
     void on_actionRot_45_about_y_triggered();
 

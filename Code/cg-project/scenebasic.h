@@ -5,6 +5,8 @@
 #include "C:\Users\mrnim\Desktop\Repos\git-forks\glew-2.0.0-win32/glew-2.0.0/include/GL/glew.h"
 #include "glslprogram.h"
 #include "C:\Users\mrnim\Desktop\Repos\git-forks\glm-0.9.8.4/glm/glm/glm.hpp"
+#include "xyztuple.h"
+
 using glm::mat4;
 
 class SceneBasic : public Scene
@@ -36,7 +38,8 @@ public:
     void resize(int, int);
     void update( float t );
     void setAngleAxis(float ang, vec3 ax);
-
+    void rotateModel(XYZTuple a, XYZTuple b, double angle);
+    void updateView(XYZTuple eye, XYZTuple direction);
     void printActiveUniforms(GLuint programHandle);
     void printActiveAttribs(GLuint programHandle);
 };

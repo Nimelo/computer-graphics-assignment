@@ -7,7 +7,8 @@
 #include <QGroupBox>
 #include <limits>
 
-TrippleSpinBoxXYZ::TrippleSpinBoxXYZ(const char *groupBoxText) : QWidget(0)
+TrippleSpinBoxXYZ::TrippleSpinBoxXYZ(const char *groupBoxText, double x, double y, double z)
+    : QWidget(0), defaultX(x), defaultY(y), defaultZ(z)
 {
     create(groupBoxText);
 }
@@ -17,9 +18,11 @@ XYZTuple TrippleSpinBoxXYZ::getCurrentValues()
     return XYZTuple(xSpinBox->value(), ySpinBox->value(), zSpinBox->value());
 }
 
-TrippleSpinBoxXYZ::TrippleSpinBoxXYZ(QWidget *parent) : QWidget(parent)
+void TrippleSpinBoxXYZ::setDefaults()
 {
-
+    this->xSpinBox->setValue(this->defaultX);
+    this->ySpinBox->setValue(this->defaultY);
+    this->zSpinBox->setValue(this->defaultZ);
 }
 
 void TrippleSpinBoxXYZ::create(const char *groupBoxText)
@@ -42,10 +45,10 @@ void TrippleSpinBoxXYZ::create(const char *groupBoxText)
     setLayout(layout);
 }
 
-QSpinBox *TrippleSpinBoxXYZ::createQSpinBox()
+QDoubleSpinBox *TrippleSpinBoxXYZ::createQSpinBox()
 {
-    auto spiner = new QSpinBox;
-    spiner->setMinimum(INT_MIN);
-    spiner->setMaximum(INT_MAX);
+    auto spiner = new QDoubleSpinBox;
+    spiner->setMinimum(-1000);
+    spiner->setMaximum(+1000);
     return spiner;
 }
