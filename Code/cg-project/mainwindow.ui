@@ -14,50 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>400</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuRotation">
-    <property name="title">
-     <string>Rotation</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="actionRot_45_about_y"/>
-    <addaction name="actionRot_45_about_x"/>
-    <addaction name="actionRot_45_about_z"/>
-   </widget>
-   <addaction name="menuRotation"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionRot_45_about_y">
-   <property name="text">
-    <string>Rot 45 about y</string>
-   </property>
-  </action>
-  <action name="actionRot_45_about_x">
-   <property name="text">
-    <string>Rot 45 about x</string>
-   </property>
-  </action>
-  <action name="actionRot_45_about_z">
-   <property name="text">
-    <string>Rot 45 about z</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

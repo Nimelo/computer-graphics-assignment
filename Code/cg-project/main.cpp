@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow *window = new MainWindow();
 
-
     QGLFormat format;
     format.setVersion(4,0);
     format.setProfile(QGLFormat::CoreProfile);
