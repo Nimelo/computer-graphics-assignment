@@ -28,7 +28,11 @@ SOURCES += main.cpp\
     glslprogram.cpp \
     glutils.cpp \
     mainview.cpp \
-    scenebasic.cpp
+    scenebasic.cpp \
+    rotationxyzwidget.cpp \
+    tripplespinboxxyz.cpp \
+    controlwidget.cpp \
+    applyresetwidget.cpp
 
 HEADERS  += mainwindow.h \
     glslprogram.h \
@@ -36,7 +40,11 @@ HEADERS  += mainwindow.h \
     mainview.h \
     scene.h \
     scenebasic.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    rotationxyzwidget.h \
+    tripplespinboxxyz.h \
+    controlwidget.h \
+    applyresetwidget.h
 
 FORMS    += mainwindow.ui
 

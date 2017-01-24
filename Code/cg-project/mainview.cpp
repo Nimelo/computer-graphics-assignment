@@ -16,7 +16,7 @@ MainView::MainView(const QGLFormat & format, QWidget *parent) : QGLWidget(format
     connect( timer, SIGNAL(timeout()), this, SLOT(timerUpdate()) );
     timer->start(50);
 
-    this->setMinimumSize(800,600);
+    //this->setMinimumSize(800,600);
 }
 
 void MainView::initializeGL() {

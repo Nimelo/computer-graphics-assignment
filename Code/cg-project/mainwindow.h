@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "mainview.h"
+#include "controlwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setView(MainView* view);
+    void setView(MainView* view, ControlWidget * controlWidget);
     ~MainWindow();
 
 private slots:
@@ -27,6 +28,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     MainView* view;
+    ControlWidget * controlWidget;
+
 };
 
 #endif // MAINWINDOW_H
