@@ -6,9 +6,10 @@
 #include <QFormLayout>
 
 
-RotationByLineWidget::RotationByLineWidget(QWidget *parent) : QWidget(parent)
+RotationByLineWidget::RotationByLineWidget(XYZTuple a, XYZTuple b, double angle)
+    : QWidget(0), defaultA(a), defaultB(b), defaultAngle(angle)
 {
-    create();
+    this->create();
 }
 
 XYZTuple RotationByLineWidget::getCurrentAPoint()
@@ -26,6 +27,13 @@ double RotationByLineWidget::getCurrentAngle()
     return angle->value();
 }
 
+void RotationByLineWidget::setDefaults()
+{
+    aPoint->setDefaults();
+    bPoint->setDefaults();
+    angle->setValue(defaultAngle);
+}
+
 void RotationByLineWidget::create()
 {
     auto groupBox = new QGroupBox("Rotation");
@@ -33,9 +41,10 @@ void RotationByLineWidget::create()
     groupBox->setLayout(vBox);
 
     //xy
-    this->aPoint = new TrippleSpinBoxXYZ("A", 0, 0, 0);
-    this->bPoint = new TrippleSpinBoxXYZ("B", 0, 0, 0);
+    this->aPoint = new TrippleSpinBoxXYZ("A", defaultA.x, defaultA.y, defaultA.z);
+    this->bPoint = new TrippleSpinBoxXYZ("B", defaultB.x, defaultB.y, defaultB.z);
     this->angle = this->getQDoubleSpinBox(0, 360);
+    this->angle->setValue(defaultAngle);
 
     //slider
 

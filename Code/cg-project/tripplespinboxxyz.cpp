@@ -43,6 +43,7 @@ void TrippleSpinBoxXYZ::create(const char *groupBoxText)
     layout->addWidget(groupBox);
 
     setLayout(layout);
+    this->setDefaults();
 }
 
 QDoubleSpinBox *TrippleSpinBoxXYZ::createQSpinBox()

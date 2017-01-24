@@ -21,8 +21,10 @@ private:
     void rotateXYZ(double x, double y, double z);
     void setUpConnections();
 private slots:
-    void onApplyClick();
-    void onResetClick();
+    void onApplyPositionClick();
+    void onResetPositionClick();
+    void onApplyRotationClick();
+    void onResetRotationCLick();
 
     void on_actionRot_45_about_y_triggered();
 

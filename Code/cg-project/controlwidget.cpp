@@ -25,7 +25,7 @@ void ControlWidget::create()
     auto groupBox = new QGroupBox("Controls");
     auto vLayout = new QVBoxLayout;
 
-    this->rotationWidget = new RotationByLineWidget();
+    this->rotationWidget = new RotationByLineWidget(XYZTuple(1,1,1), XYZTuple(0,0,0), 90.0);
     this->eyeWidget = new TrippleSpinBoxXYZ("Eye Position", 0, 0, 2);
     this->directionWidget = new TrippleSpinBoxXYZ("View Vector", 0, 0, -1);
     this->applyResetRotationWidget = new ApplyResetWidget();

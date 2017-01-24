@@ -13,8 +13,12 @@ class SceneBasic : public Scene
 {
 private:
     int width, height;
-    GLuint vboHandles[2];
+    //GLuint vboHandles[2];
     GLuint vaoHandle;
+    GLuint rotationLine;
+    float linePositon[6];
+    float lineColor[6];
+
     float angle;
     vec3 axis;
     mat4 rotationMatrix;
@@ -36,7 +40,7 @@ public:
     void initScene();
     void render();
     void resize(int, int);
-    void update( float t );
+    void update(float t);
     void setAngleAxis(float ang, vec3 ax);
     void rotateModel(XYZTuple a, XYZTuple b, double angle);
     void updateView(XYZTuple eye, XYZTuple direction);

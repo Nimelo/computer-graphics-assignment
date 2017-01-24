@@ -55,34 +55,43 @@ void MainWindow::rotateXYZ(double x, double y, double z)
 
 void MainWindow::setUpConnections()
 {
-   /*auto applyButton = this->controlWidget->applyResetWidget->applyButton;
-   connect(applyButton, SIGNAL (released()), this, SLOT (onApplyClick()));
+   auto applyPosition = this->controlWidget->applyResetPositionWidget->applyButton;
+   connect(applyPosition, SIGNAL (released()), this, SLOT (onApplyPositionClick()));
 
-   auto resetButton = this->controlWidget->applyResetWidget->resetButton;
-   connect(resetButton, SIGNAL (released()), this, SLOT (onResetClick()));*/
+   auto resetPosition = this->controlWidget->applyResetPositionWidget->resetButton;
+   connect(resetPosition, SIGNAL (released()), this, SLOT (onResetPositionClick()));
+
+   auto applyRotation = this->controlWidget->applyResetRotationWidget->applyButton;
+   connect(applyRotation, SIGNAL (released()), this, SLOT (onApplyRotationClick()));
+
+   auto resetRotation = this->controlWidget->applyResetRotationWidget->resetButton;
+   connect(resetRotation, SIGNAL (released()), this, SLOT (onResetRotationClick()));
 }
 
-void MainWindow::onApplyClick()
+void MainWindow::onApplyPositionClick()
 {
     auto currentValues = this->controlWidget->getCurrentValues();
     this->view->updateView(currentValues.eye, currentValues.direction);
-    //this->view->rotateModel(currentValues.aPoint, currentValues.bPoint, currentValues.angle);
 }
 
-void MainWindow::onResetClick()
+void MainWindow::onResetPositionClick()
 {
-    auto eyeWidget = this->controlWidget->eyeWidget;
-    auto directionWidget = this->controlWidget->directionWidget;
-    eyeWidget->xSpinBox->setValue(0);
-    eyeWidget->ySpinBox->setValue(0);
-    eyeWidget->zSpinBox->setValue(2);
-
-    directionWidget->xSpinBox->setValue(0);
-    directionWidget->ySpinBox->setValue(0);
-    directionWidget->zSpinBox->setValue(-1);
-
+    this->controlWidget->eyeWidget->setDefaults();
+    this->controlWidget->directionWidget->setDefaults();
     auto currentValues = this->controlWidget->getCurrentValues();
     this->view->updateView(currentValues.eye, currentValues.direction);
+}
+
+void MainWindow::onApplyRotationClick()
+{
+    auto currentValues = this->controlWidget->getCurrentValues();
+    this->view->rotateModel(currentValues.aPoint, currentValues.bPoint, currentValues.angle);
+}
+
+void MainWindow::onResetRotationCLick()
+{
+    this->controlWidget->rotationWidget->setDefaults();
+
 }
 
 void MainWindow::on_actionRot_45_about_y_triggered()

@@ -21,6 +21,17 @@ const double PI = 4.0*atan(1.0);
 SceneBasic::SceneBasic() : angle(0.0), axis(0.0,1.0,0.0)
 {
     readData("shader/scenebasic2.dat");
+
+    for(int i = 0; i < 6; i++)
+    {
+        this->lineColor[i] = 0;
+        this->linePositon[i] = -1;
+    }
+
+    for(int i = 3; i < 6; i++)
+    {
+        this->linePositon[i] = 2;
+    }
 }
 
 void SceneBasic::readData(const char* fname)
@@ -45,38 +56,16 @@ void SceneBasic::setAngleAxis(float ang, glm::vec3 ax)
 
 void SceneBasic::rotateModel(XYZTuple b, XYZTuple d, double angle)
 {
-    mat4 m1;
-    mat4 m2;
+    model *= glm::translate(mat4(1.0f), vec3(b.x, b.y, b.z))
+            * glm::rotate(mat4(1.0f), (float)(angle * PI / 180), glm::normalize(vec3(d.x, d.y, d.z)))
+            * glm::translate(mat4(1.0f), -vec3(b.x, b.y, b.z));
 
-    for(int i = 0; i < 4; i++)
-    {
-        for(int j = 0; j < 4; j++)
-        {
-            if(i == j)
-            {
-                m1[i][j] = 1.0;
-                m2[i][j] = 1.0;
-            }
-            else
-            {
-                m1[i][j] = m2[i][j] = 0;
-            }
-        }
-    }
-
-    m1[0][3] = -b.x;
-    m1[1][3] = -b.y;
-    m1[2][3] = -b.z;
-
-    m1[0][3] = b.x;
-    m1[1][3] = b.y;
-    m1[2][3] = b.z;
-
-    rotationMatrix = m2 * rotationMatrix * m1;
-
-    this->axis = glm::normalize(vec3(b.x, b.y, b.z));
-    this->angle = angle;
-
+    linePositon[0] = b.x;
+    linePositon[1] = b.y;
+    linePositon[2] = b.z;
+    linePositon[3] = b.x + d.x;
+    linePositon[4] = b.y + d.y;
+    linePositon[5] = b.z + d.z;
 }
 
 void SceneBasic::updateView(XYZTuple eye, XYZTuple direction)
@@ -91,11 +80,12 @@ void SceneBasic::updateView(XYZTuple eye, XYZTuple direction)
 void SceneBasic::CreateVBO()
 {
     // Create and populate the buffer objects
-    GLuint vboHandles[2];
-    glGenBuffers(2, vboHandles);
+    GLuint vboHandles[4];
+    glGenBuffers(4, vboHandles);
 
     GLuint positionBufferHandle = vboHandles[0];
     GLuint colorBufferHandle = vboHandles[1];
+
 
     // bind positionBufferHandle to GL_ARRAY_BUFFER buffer object target
     glBindBuffer(GL_ARRAY_BUFFER, positionBufferHandle);
@@ -107,7 +97,7 @@ void SceneBasic::CreateVBO()
     glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(float), colorData, GL_STATIC_DRAW);
 
     // Create and set-up the vertex array object
-    glGenVertexArrays( 1, &vaoHandle );
+    glGenVertexArrays(1, &vaoHandle);
     // bind the vertex array object
     glBindVertexArray(vaoHandle);
 
@@ -127,6 +117,27 @@ void SceneBasic::CreateVBO()
 
     glBindBuffer(GL_ARRAY_BUFFER, colorBufferHandle);
     glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    GLuint positionRotationBufferHandle = vboHandles[2];
+    GLuint colorRotatioBufferHandle = vboHandles[3];
+
+    glBindBuffer(GL_ARRAY_BUFFER, positionRotationBufferHandle);
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), this->linePositon, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, colorRotatioBufferHandle);
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), this->lineColor, GL_STATIC_DRAW);
+
+    glGenVertexArrays(1, &rotationLine);
+    glBindVertexArray(rotationLine);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, positionRotationBufferHandle);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, colorRotatioBufferHandle);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 
@@ -229,7 +240,7 @@ void SceneBasic::initScene()
     view = glm::lookAt(vec3(0.0f,0.0f,2.0f), vec3(0.0f,0.0f,0.0f), vec3(0.0f,1.0f,0.0f));
     projection = mat4(1.0f);
 
-    glClearColor( 0.0, 0.0, 0.0, 1.0 );
+    glClearColor(1.0, 1.0, 1.0, 1.0 );
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -243,8 +254,6 @@ void SceneBasic::update( float t )
 
 void SceneBasic::setMatrices()
 {
-  //  rotationMatrix = glm::rotate(mat4(1.0f),angle,vec3(0.0f,1.0f,0.0f));
-    model = glm::rotate(rotationMatrix,angle,axis);
     mat4 mv = view * model;
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("MVP", projection * mv);
@@ -268,7 +277,29 @@ void SceneBasic::render()
        36 specifies the number of indices to be rendered. */
 
     setMatrices();
-    glDrawArrays(GL_TRIANGLES, 0, 36 );
+    glBindVertexArray(vaoHandle);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    mat4 mv = view;
+    prog.setUniform("ModelViewMatrix", mv);
+    prog.setUniform("MVP", projection * mv);
+
+    GLuint positionRotationBufferHandle;
+
+    this->CreateVBO();
+    //glGenVertexArrays(1, &rotationLine);
+    glBindVertexArray(rotationLine);
+   // glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), this->lineColor, GL_STATIC_DRAW);
+//    glEnableVertexAttribArray(0);
+//    glEnableVertexAttribArray(1);
+
+//    glBindBuffer(GL_ARRAY_BUFFER, positionRotationBufferHandle);
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+//    glBindBuffer(GL_ARRAY_BUFFER, colorRotatioBufferHandle);
+//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glDrawArrays(GL_LINES, 0, 2);
 }
 
 void SceneBasic::resize(int w, int h)
