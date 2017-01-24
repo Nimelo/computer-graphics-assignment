@@ -24,7 +24,7 @@ private slots:
     void onApplyPositionClick();
     void onResetPositionClick();
     void onApplyRotationClick();
-    void onResetRotationCLick();
+    void onResetRotationClick();
 
     void on_actionRot_45_about_y_triggered();
 

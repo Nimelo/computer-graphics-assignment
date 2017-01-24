@@ -25,25 +25,37 @@ void ControlWidget::create()
     auto groupBox = new QGroupBox("Controls");
     auto vLayout = new QVBoxLayout;
 
-    this->rotationWidget = new RotationByLineWidget(XYZTuple(1,1,1), XYZTuple(0,0,0), 90.0);
+    this->rotationWidget = new RotationByLineWidget(XYZTuple(1,0,0), XYZTuple(1,0,0), 30.0);
     this->eyeWidget = new TrippleSpinBoxXYZ("Eye Position", 0, 0, 2);
     this->directionWidget = new TrippleSpinBoxXYZ("View Vector", 0, 0, -1);
     this->applyResetRotationWidget = new ApplyResetWidget();
     this->applyResetPositionWidget = new ApplyResetWidget();
 
-    vLayout->addWidget(rotationWidget);
-    vLayout->addWidget(applyResetRotationWidget);
+    auto rotationGroupLayout = new QGroupBox("Rotation");
+    auto rotationLayout = new QVBoxLayout;
+
+    rotationGroupLayout->setLayout(rotationLayout);
+
+    rotationLayout->addWidget(rotationWidget);
+    rotationLayout->addWidget(applyResetRotationWidget);
+
+    vLayout->addWidget(rotationGroupLayout);
 
     auto hLayout = new QHBoxLayout;
+    auto positionGroupBox = new QGroupBox("View Point");
 
     hLayout->addWidget(eyeWidget);
     hLayout->addWidget(directionWidget);
 
-    auto widget = new QWidget;
-    widget->setLayout(hLayout);
-    vLayout->addWidget(widget);
-    vLayout->addWidget(applyResetPositionWidget);
+    auto positionWidget = new QWidget;
+    positionWidget->setLayout(hLayout);
+    auto positionLayout = new QVBoxLayout;
 
+    positionLayout->addWidget(positionWidget);
+    positionLayout->addWidget(applyResetPositionWidget);
+
+    positionGroupBox->setLayout(positionLayout);
+    vLayout->addWidget(positionGroupBox);
     groupBox->setLayout(vLayout);
 
     auto layout = new QVBoxLayout;

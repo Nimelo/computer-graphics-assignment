@@ -11,10 +11,7 @@ ApplyResetWidget::ApplyResetWidget(QWidget *parent) : QWidget(parent)
 
 void ApplyResetWidget::create()
 {
-    auto groupBox = new QGroupBox("Actions");
     auto boxLayout = new QHBoxLayout;
-
-    groupBox->setLayout(boxLayout);
 
     this->applyButton = new QPushButton("Apply");
     this->resetButton = new QPushButton("Reset");
@@ -22,8 +19,5 @@ void ApplyResetWidget::create()
     boxLayout->addWidget(applyButton);
     boxLayout->addWidget(resetButton);
 
-    auto layout = new QHBoxLayout;
-    layout->addWidget(groupBox);
-
-    setLayout(layout);
+    setLayout(boxLayout);
 }

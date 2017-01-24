@@ -42,6 +42,7 @@ public:
     void resize(int, int);
     void update(float t);
     void setAngleAxis(float ang, vec3 ax);
+    void resetModel();
     void rotateModel(XYZTuple a, XYZTuple b, double angle);
     void updateView(XYZTuple eye, XYZTuple direction);
     void printActiveUniforms(GLuint programHandle);

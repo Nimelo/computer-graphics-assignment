@@ -36,17 +36,12 @@ void RotationByLineWidget::setDefaults()
 
 void RotationByLineWidget::create()
 {
-    auto groupBox = new QGroupBox("Rotation");
     auto vBox = new QVBoxLayout;
-    groupBox->setLayout(vBox);
 
-    //xy
     this->aPoint = new TrippleSpinBoxXYZ("A", defaultA.x, defaultA.y, defaultA.z);
     this->bPoint = new TrippleSpinBoxXYZ("B", defaultB.x, defaultB.y, defaultB.z);
     this->angle = this->getQDoubleSpinBox(0, 360);
     this->angle->setValue(defaultAngle);
-
-    //slider
 
     auto hBox = new QHBoxLayout;
     hBox->addWidget(aPoint);
@@ -63,9 +58,7 @@ void RotationByLineWidget::create()
 
     vBox->addWidget(widgetSlider);
 
-    auto layout = new QHBoxLayout;
-    layout->addWidget(groupBox);
-    setLayout(layout);
+    setLayout(vBox);
 }
 
 QDoubleSpinBox *RotationByLineWidget::getQDoubleSpinBox(int from, int to)

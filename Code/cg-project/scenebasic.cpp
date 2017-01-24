@@ -24,13 +24,7 @@ SceneBasic::SceneBasic() : angle(0.0), axis(0.0,1.0,0.0)
 
     for(int i = 0; i < 6; i++)
     {
-        this->lineColor[i] = 0;
-        this->linePositon[i] = -1;
-    }
-
-    for(int i = 3; i < 6; i++)
-    {
-        this->linePositon[i] = 2;
+        this->lineColor[i] = 0.5;
     }
 }
 
@@ -52,6 +46,11 @@ void SceneBasic::setAngleAxis(float ang, glm::vec3 ax)
 {
     angle = ang;
     axis = ax;
+}
+
+void SceneBasic::resetModel()
+{
+    model = mat4(1.0f);
 }
 
 void SceneBasic::rotateModel(XYZTuple b, XYZTuple d, double angle)
@@ -238,14 +237,11 @@ void SceneBasic::initScene()
     prog.printActiveUniforms();
 
     model = mat4(1.0f);
- //   float ang = -PI/6;
-//    model *= glm::rotate(mat4(1.0f),ang, vec3(1.0f,0.0f,0.0f));
- //   model *= glm::rotate(mat4(1.0f),-ang, vec3(0.0f,1.0f,0.0f));
 
     view = glm::lookAt(vec3(0.0f,0.0f,2.0f), vec3(0.0f,0.0f,0.0f), vec3(0.0f,1.0f,0.0f));
     projection = mat4(1.0f);
 
-    glClearColor(1.0, 1.0, 1.0, 1.0 );
+    glClearColor(0.0, 0.0, 0.0, 1.0 );
     glEnable(GL_DEPTH_TEST);
 }
 

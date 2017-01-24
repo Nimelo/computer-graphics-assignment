@@ -15,8 +15,6 @@ MainView::MainView(const QGLFormat & format, QWidget *parent) : QGLWidget(format
     timer = new QTimer(this);
     connect( timer, SIGNAL(timeout()), this, SLOT(timerUpdate()) );
     timer->start(50);
-
-    //this->setMinimumSize(800,600);
 }
 
 void MainView::initializeGL() {
@@ -78,8 +76,6 @@ void MainView::timerUpdate() {
 
  void MainView::setRotAxis(float ang, float x, float y , float z)
  {
-    // angle = ang;
-     //axis = vec3(x,y,z);
      scene->setAngleAxis(ang,vec3(x,y,z));
      updateGL();
  }
@@ -92,4 +88,9 @@ void MainView::timerUpdate() {
  void MainView::updateView(XYZTuple eye, XYZTuple direction)
  {
      scene->updateView(eye, direction);
+ }
+
+ void MainView::resetModel()
+ {
+     scene->resetModel();
  }

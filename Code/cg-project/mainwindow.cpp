@@ -88,10 +88,10 @@ void MainWindow::onApplyRotationClick()
     this->view->rotateModel(currentValues.aPoint, currentValues.bPoint, currentValues.angle);
 }
 
-void MainWindow::onResetRotationCLick()
+void MainWindow::onResetRotationClick()
 {
     this->controlWidget->rotationWidget->setDefaults();
-
+    this->view->resetModel();
 }
 
 void MainWindow::on_actionRot_45_about_y_triggered()

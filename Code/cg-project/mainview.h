@@ -25,6 +25,7 @@ public:
     void setRotAxis(float ang, float x, float y , float z);
     void rotateModel(XYZTuple a, XYZTuple b, double angle);
     void updateView(XYZTuple eye, XYZTuple direction);
+    void resetModel();
 protected:
     void initializeGL();
     void paintGL();
