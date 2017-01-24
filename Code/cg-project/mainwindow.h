@@ -17,8 +17,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void setView(MainView* view, ControlWidget * controlWidget);
     ~MainWindow();
-
+private:
+    void rotateXYZ(double x, double y, double z);
+    void setUpConnections();
 private slots:
+    void onApplyClick();
+
     void on_actionRot_45_about_y_triggered();
 
     void on_actionRot_45_about_x_triggered();

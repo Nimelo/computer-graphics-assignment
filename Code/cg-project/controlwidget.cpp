@@ -11,6 +11,18 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     create();
 }
 
+ControlTuple ControlWidget::getCurrentValues()
+{
+    return ControlTuple(rotationWidget->getCurrentValues(),
+                        eyeWidget->getCurrentValues(),
+                        directionWidget->getCurrentValues());
+}
+
+ApplyResetWidget *ControlWidget::getApplyResetWidget()
+{
+    return this->applyResetWidget;
+}
+
 void ControlWidget::create()
 {
     auto groupBox = new QGroupBox("Controls");

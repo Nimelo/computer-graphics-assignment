@@ -32,7 +32,9 @@ SOURCES += main.cpp\
     rotationxyzwidget.cpp \
     tripplespinboxxyz.cpp \
     controlwidget.cpp \
-    applyresetwidget.cpp
+    applyresetwidget.cpp \
+    xyztuple.cpp \
+    controltuple.cpp
 
 HEADERS  += mainwindow.h \
     glslprogram.h \
@@ -44,7 +46,9 @@ HEADERS  += mainwindow.h \
     rotationxyzwidget.h \
     tripplespinboxxyz.h \
     controlwidget.h \
-    applyresetwidget.h
+    applyresetwidget.h \
+    xyztuple.h \
+    controltuple.h
 
 FORMS    += mainwindow.ui
 

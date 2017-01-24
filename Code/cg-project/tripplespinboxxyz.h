@@ -3,12 +3,14 @@
 
 #include <QWidget>
 #include <QSpinBox>
+#include "xyztuple.h"
 
 class TrippleSpinBoxXYZ : public QWidget
 {
     Q_OBJECT
 public:
     TrippleSpinBoxXYZ(const char * groupBoxText);
+    XYZTuple getCurrentValues();
 private:
     explicit TrippleSpinBoxXYZ(QWidget *parent = 0);
 

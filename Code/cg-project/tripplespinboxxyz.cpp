@@ -12,6 +12,11 @@ TrippleSpinBoxXYZ::TrippleSpinBoxXYZ(const char *groupBoxText) : QWidget(0)
     create(groupBoxText);
 }
 
+XYZTuple TrippleSpinBoxXYZ::getCurrentValues()
+{
+    return XYZTuple(xSpinBox->value(), ySpinBox->value(), zSpinBox->value());
+}
+
 TrippleSpinBoxXYZ::TrippleSpinBoxXYZ(QWidget *parent) : QWidget(parent)
 {
 

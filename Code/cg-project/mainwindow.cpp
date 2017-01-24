@@ -4,6 +4,7 @@
 #include <QSplitter>
 #include <QHBoxLayout>
 #include <QSizePolicy>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,6 +37,8 @@ void MainWindow::setView(MainView *view, ControlWidget *controlWidget)
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1000);
+
+    this->setUpConnections();
 }
 
 MainWindow::~MainWindow()
@@ -43,6 +46,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::rotateXYZ(double x, double y, double z)
+{
+    view->setRotAxis(x, 1, 0, 0);
+    view->setRotAxis(y, 0, 1, 0);
+    view->setRotAxis(z, 0, 0, 1);
+}
+
+void MainWindow::setUpConnections()
+{
+   auto applyButton = this->controlWidget->getApplyResetWidget()->getApplyButton();
+   connect(applyButton, SIGNAL (released()), this, SLOT (onApplyClick()));
+}
+
+void MainWindow::onApplyClick()
+{
+    auto currentValues = this->controlWidget->getCurrentValues();
+    auto rotation = currentValues.rotation;
+    std::cout << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
+    this->rotateXYZ(rotation.x, rotation.y, rotation.z);
+}
 void MainWindow::on_actionRot_45_about_y_triggered()
 {
     view->setRotAxis(45,0,1,0);

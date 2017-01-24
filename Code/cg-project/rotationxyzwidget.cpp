@@ -11,6 +11,11 @@ RotationXYZWidget::RotationXYZWidget(QWidget *parent) : QWidget(parent)
     create();
 }
 
+XYZTuple RotationXYZWidget::getCurrentValues()
+{
+    return XYZTuple(xSlider->value(), ySlider->value(), zSlider->value());
+}
+
 void RotationXYZWidget::create()
 {
     auto formLayout = new QFormLayout;

@@ -19,7 +19,7 @@ private:
     vec3 axis;
 
 public:
-    MainView( const QGLFormat & format, QWidget *parent = 0 );
+    MainView(const QGLFormat & format, QWidget *parent = 0 );
 
     void setRotAxis(float ang, float x, float y , float z);
 protected:
