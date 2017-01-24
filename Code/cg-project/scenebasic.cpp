@@ -66,6 +66,11 @@ void SceneBasic::rotateModel(XYZTuple b, XYZTuple d, double angle)
     linePositon[3] = b.x + d.x;
     linePositon[4] = b.y + d.y;
     linePositon[5] = b.z + d.z;
+
+    GLuint positionRotationBufferHandle = vboHandles[2];
+
+    glBindBuffer(GL_ARRAY_BUFFER, positionRotationBufferHandle);
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), this->linePositon, GL_STATIC_DRAW);
 }
 
 void SceneBasic::updateView(XYZTuple eye, XYZTuple direction)
@@ -80,7 +85,7 @@ void SceneBasic::updateView(XYZTuple eye, XYZTuple direction)
 void SceneBasic::CreateVBO()
 {
     // Create and populate the buffer objects
-    GLuint vboHandles[4];
+    //GLuint vboHandles[4];
     glGenBuffers(4, vboHandles);
 
     GLuint positionBufferHandle = vboHandles[0];
@@ -284,21 +289,7 @@ void SceneBasic::render()
     prog.setUniform("ModelViewMatrix", mv);
     prog.setUniform("MVP", projection * mv);
 
-    GLuint positionRotationBufferHandle;
-
-    this->CreateVBO();
-    //glGenVertexArrays(1, &rotationLine);
     glBindVertexArray(rotationLine);
-   // glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), this->lineColor, GL_STATIC_DRAW);
-//    glEnableVertexAttribArray(0);
-//    glEnableVertexAttribArray(1);
-
-//    glBindBuffer(GL_ARRAY_BUFFER, positionRotationBufferHandle);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-//    glBindBuffer(GL_ARRAY_BUFFER, colorRotatioBufferHandle);
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
     glDrawArrays(GL_LINES, 0, 2);
 }
 

@@ -13,7 +13,7 @@ class SceneBasic : public Scene
 {
 private:
     int width, height;
-    //GLuint vboHandles[2];
+    GLuint vboHandles[4];
     GLuint vaoHandle;
     GLuint rotationLine;
     float linePositon[6];
