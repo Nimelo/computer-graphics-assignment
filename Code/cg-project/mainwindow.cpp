@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QSplitter>
+#include <QDesktopWidget>
 #include <QHBoxLayout>
 #include <QSizePolicy>
 #include <iostream>
@@ -37,7 +38,7 @@ void MainWindow::setView(MainView *view, ControlWidget *controlWidget)
 
     this->setMinimumHeight(800);
     this->setMinimumWidth(1000);
-
+    this->resize(QDesktopWidget().availableGeometry(this).size() * .7f);
     this->setUpConnections();
 }
 

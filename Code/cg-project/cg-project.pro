@@ -43,7 +43,6 @@ HEADERS  += mainwindow.h \
     mainview.h \
     scene.h \
     scenebasic.h \
-    ui_mainwindow.h \
     rotationxyzwidget.h \
     tripplespinboxxyz.h \
     controlwidget.h \
